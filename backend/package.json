@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "slowapi": "^1.0.0",
+    "tenacity": "^1.0.4"
+  }
+}
