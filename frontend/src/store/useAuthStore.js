@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { supabase } from "../api/supabaseClient";
+import { supabase, isSupabaseConfigured } from "../api/supabaseClient";
 import { fetchUsage } from "../api/chatApi"; // Import fetchUsage
 
 export const useAuthStore = create((set, get) => ({
@@ -22,6 +22,12 @@ export const useAuthStore = create((set, get) => ({
   },
 
   initialize: async () => {
+    if (!isSupabaseConfigured || !supabase) {
+      set({ session: null, user: null, loading: false });
+      get().fetchLiveUsage();
+      return () => {};
+    }
+
     const { data: { session } } = await supabase.auth.getSession();
     set({ session, user: session?.user, loading: false });
 
@@ -47,7 +53,9 @@ export const useAuthStore = create((set, get) => ({
   },
 
   signOut: async () => {
-    await supabase.auth.signOut();
+    if (supabase) {
+      await supabase.auth.signOut();
+    }
     set({ user: null, session: null, usage: null });
     get().fetchLiveUsage();
   }

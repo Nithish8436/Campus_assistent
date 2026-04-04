@@ -36,7 +36,7 @@ export default function AuthModal() {
               </div>
               <h3 className="text-xl font-bold text-white tracking-tight">Free Limit Reached!</h3>
               <p className="text-zinc-400 text-sm leading-relaxed">
-                You've experienced the potential of the Smart Campus Assistant. Join our community to unlock **50 free actions** every month.
+                You've experienced the potential of the Smart Campus Assistant. Join our community to unlock 50 free actions every month.
               </p>
               
               <div className="grid grid-cols-2 gap-3 mt-6">

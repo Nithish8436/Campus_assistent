@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { supabase } from "../api/supabaseClient";
+import { supabase, isSupabaseConfigured } from "../api/supabaseClient";
 import { LogIn, UserPlus, Loader2, AlertCircle, KeyRound, ArrowLeft, CheckCircle2 } from "lucide-react";
 
 // view: "login" | "signup" | "forgot" | "forgot_sent"
@@ -12,6 +12,12 @@ export default function AuthForm({ onSuccess }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    if (!isSupabaseConfigured || !supabase) {
+      setError("Authentication is not configured. Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in frontend/.env.local and restart Vite.");
+      return;
+    }
+
     setLoading(true);
     setError("");
 
